@@ -90,7 +90,6 @@ if "%menu_choice%"=="7" set "menu_target=hosts_update"
 if "%menu_choice%"=="8" set "menu_target=auto_config"
 if "%menu_choice%"=="9" call :check_updates_switch & goto menu
 if "%menu_choice%"=="10" start "" "pwsh.exe" -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0utils\zapret_update.ps1" & exit
-if "%menu_choice%"=="funsy" cls & echo Ae+YgUtX6/Fy8qx/Q2Q9q825dVhWZqUi7J0JHz7wOihETVlHzftBIJodrMA3inRt8zh+PMWbpuI= & timeout /t 1 /nobreak >nul & goto menu
 if not defined menu_target goto menu
 
 cls
