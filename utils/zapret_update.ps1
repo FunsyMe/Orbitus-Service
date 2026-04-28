@@ -106,7 +106,7 @@ try {
 
 # Download Archive
 try {
-    Invoke-WebRequest -Uri "https://github.com/FunsyMe/Orbitus-Service/releases/latest/download/Orbitus.Service.zip" -OutFile $zipDir
+    Invoke-WebRequest -Uri "https://github.com/FunsyMe/Orbitus-Service/releases/latest/download/Orbitus.Service.zip" -ErrorAction Stop -OutFile $zipDir
     Write-Host "[ОК] Orbitus Service успешно скачался" -ForegroundColor Green
 }
 catch {
@@ -127,9 +127,16 @@ Expand-Archive -Path $zipDir -DestinationPath $extractDir | Out-Null
 $ProgressPreference = 'Continue'
 
 # Clear Folder
+$exclude = @(
+    "zapret_update.ps1",
+    "ipset-exclude-user.txt",
+    "list-exclude-user.txt",
+    "list-general-user.txt"
+)
+
 if (Test-Path $rootDir) {
     Get-ChildItem -Path $rootDir -Force |
-        Where-Object { $_.Name -ne "zapret_update.ps1" } |
+        Where-Object { $_.Name -notin $exclude } |
         Remove-Item -Recurse -Force | Out-Null
 } else {
     New-Item -ItemType Directory -Path $rootDir | Out-Null
