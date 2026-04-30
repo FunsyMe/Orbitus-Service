@@ -1,4 +1,4 @@
-﻿$ipset.UI.RawUI.WindowTitle = "Обновление файла IPset"
+﻿$host.UI.RawUI.WindowTitle = "Обновление файла IPset"
 
 # Check Admin
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
