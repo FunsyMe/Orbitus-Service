@@ -39,7 +39,7 @@ $batFiles = Get-ChildItem $preConfigsDir -Filter "*.bat" |
             Sort-Object Name
 
 if (-not $batFiles) {
-    Write-Host "[ОШИБКА] Ненайдены general*.bat файлы" -ForegroundColor Red
+    Write-Host "[ОШИБКА] Не найдены general*.bat файлы" -ForegroundColor Red
     Exit-Script
 }
 
@@ -99,8 +99,9 @@ for ($configNum = 1; $configNum -le $batFiles.Count; $configNum++) {
         } catch {
             $ok = 0
         } finally {
-            if ($null -ne $client) { $client.Dispose() }
-            if ($null -ne $req)    { $req.Dispose() }
+            if ($null -ne $client)  { $client.Dispose() }
+            if ($null -ne $req)     { $req.Dispose() }
+            if ($null -ne $handler) { $handler.Dispose() }
         }
 
         [PSCustomObject]@{ Name = $t.Name; HttpOk = $ok; Method = "HTTP-HEAD"; Target = $t.Url }
@@ -138,7 +139,7 @@ for ($configNum = 1; $configNum -le $batFiles.Count; $configNum++) {
         }
     } elseif ($httpResult -ge ($targets.Count - 1)) {
         Write-Host " > Кажется, Вам " -ForegroundColor DarkGray -NoNewline
-        Write-Host "возможно подходит " -ForegroundColor Yellow -NoNewline
+        Write-Host "частично подходит " -ForegroundColor Yellow -NoNewline
         Write-Host "конфиг $($file.Name)" -ForegroundColor DarkGray
         Write-Host ""
     } else {
