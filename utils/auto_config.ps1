@@ -64,7 +64,7 @@ for ($configNum = 1; $configNum -le $batFiles.Count; $configNum++) {
         -WorkingDirectory $rootDir `
         -WindowStyle Hidden `
         -PassThru
-    Start-Sleep -Milliseconds 800
+    Start-Sleep -Seconds 2
 
     Write-Host " > Запуск теста..." -ForegroundColor DarkGray
 
@@ -91,9 +91,10 @@ for ($configNum = 1; $configNum -le $batFiles.Count; $configNum++) {
 
             $client = [System.Net.Http.HttpClient]::new($handler)
             $client.Timeout = [System.TimeSpan]::FromSeconds(4)
+            $client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
 
-            $req = [System.Net.Http.HttpRequestMessage]::new([System.Net.Http.HttpMethod]::Head, $t.Url)
-            $resp = $client.SendAsync($req).GetAwaiter().GetResult()
+            $req = [System.Net.Http.HttpRequestMessage]::new([System.Net.Http.HttpMethod]::Get, $t.Url)
+            $resp = $client.SendAsync($req, [System.Net.Http.HttpCompletionOption]::ResponseHeadersRead).GetAwaiter().GetResult()
 
             $ok = if ($resp.IsSuccessStatusCode) { 1 } else { 0 }
         } catch {

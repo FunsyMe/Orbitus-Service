@@ -63,8 +63,8 @@ call :game_filter_status
 call :check_updates_status
 call :test_service zapret status
 
-echo [1] Запустить и добавить Zapret в автозапуск
-echo [2] Остановить и удалить Zapret из автозапуска
+echo [1] Запустить и добавить Zapret и proxy в автозапуск
+echo [2] Остановить и удалить Zapret и proxy из автозапуска
 echo [3] Диагностика Zapret [zapret %ZapretStatus%]
 echo [4] Переключить фильтер IPset [%IPsetStatus%]
 echo [5] Переключить фильтер GameFilter [%GameFilterStatus%]
