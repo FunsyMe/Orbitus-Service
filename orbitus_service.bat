@@ -96,8 +96,8 @@ set /p menu_choice=[?] Введите выбор [1-10]:
 if not defined menu_choice goto menu
 if "%menu_choice%"=="1" set "menu_target=zapret_install"
 if "%menu_choice%"=="2" set "menu_target=zapret_remove"
-if "%menu_choice%"=="3" call :ipset_switch & goto menu
-if "%menu_choice%"=="4" call :game_filter_switch & goto menu
+if "%menu_choice%"=="3" call :game_filter_switch & goto menu
+if "%menu_choice%"=="4" call :ipset_switch & goto menu
 if "%menu_choice%"=="5" call :check_updates_switch & goto menu
 if "%menu_choice%"=="6" set "menu_target=ipset_update"
 if "%menu_choice%"=="7" set "menu_target=hosts_update"
