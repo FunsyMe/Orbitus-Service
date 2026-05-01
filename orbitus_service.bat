@@ -79,7 +79,7 @@ echo.
 echo    [ОБНОВЛЕНИЯ]
 echo        6. Обновить файл IPset
 echo        7. Обновить файл hosts
-echo        8. Авто-Проверка обновлений
+echo        8. Проверить обновления       %UpdateStatus%
 echo.
 echo    [ИНСТРУМЕНТЫ]
 echo        9. Диагностика zapret
