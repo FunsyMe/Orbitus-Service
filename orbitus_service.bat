@@ -62,7 +62,6 @@ cls
 call :ipset_status
 call :game_filter_status
 call :check_updates_status
-call :test_service zapret status
 
 echo.
 echo    ORBITUS SERVICE v%LOCAL_VERSION%
@@ -152,18 +151,12 @@ if "%ServiceStatus%"=="Running" (
     if "%~2"=="soft" (
         echo [?] Ошибка: %ServiceName% уже запущен. Нажмите любую клавишу для выхода...
         pause >nul & exit
-    ) else if "%~2"=="status" (
-        set "ZapretStatus=работает"
     ) else (
         echo %ServiceName% работает & exit /b
     )
 ) else if "%ServiceStatus%"=="StopPending" (
     echo [?] Ошибка: %ServiceName% останавливается. Запустите диагностику для проверки конфликтов. Нажмите любую клавишу для выхода...
     pause >nul & exit
-) else if "%ServiceStatus%"=="Stopped" (
-    if "%~2"=="status" (
-        set "ZapretStatus=не работает"
-    )
 )
 
 exit /b
