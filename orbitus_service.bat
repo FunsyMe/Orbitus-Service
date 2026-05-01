@@ -29,6 +29,7 @@ if "%~1"=="game_filter" (
 
 REM Проверка прав
 net session >nul 2>&1 || (
+    echo Запрашиваем права администратора...
     powershell -NoProfile -ExecutionPolicy Bypass -Command "Start-Process -FilePath '%~s0' -Verb RunAs" & exit
 )
 
@@ -63,16 +64,29 @@ call :game_filter_status
 call :check_updates_status
 call :test_service zapret status
 
-echo [1] Запустить и добавить Zapret и proxy в автозапуск
-echo [2] Остановить и удалить Zapret и proxy из автозапуска
-echo [3] Диагностика Zapret [zapret %ZapretStatus%]
-echo [4] Переключить фильтер IPset [%IPsetStatus%]
-echo [5] Переключить фильтер GameFilter [%GameFilterStatus%]
-echo [6] Обновить файл IPset
-echo [7] Обновить файл hosts
-echo [8] Автоматический поиск конфигураций
-echo [9] Автоматическая проверка обновлений [%CheckUpdatesStatus%]
-echo [10] Обновить утилиту Orbitus Service [v%LOCAL_VERSION%] %UpdateStatus%
+echo.
+echo    ORBITUS SERVICE v%LOCAL_VERSION%
+echo    --------------------------------
+echo.
+echo    [СЕРВИС]
+echo       1. Установить сервис
+echo       2. Удалить сервис
+echo.
+echo    [НАСТРОЙКИ]
+echo        3. Сменить Game Filter        [%GameFilterStatus%]
+echo        4. Сменить IPset Filter       [%IPsetStatus%]
+echo        5. Авто-Проверка обновлений   [%CheckUpdatesStatus%]
+echo.
+echo    [ОБНОВЛЕНИЯ]
+echo        6. Обновить файл IPset
+echo        7. Обновить файл hosts
+echo        8. Авто-Проверка обновлений
+echo.
+echo    [ИНСТРУМЕНТЫ]
+echo        9. Диагностика zapret
+echo        10. Авто-Поиск конфигурации
+echo.
+echo    --------------------------------
 echo.
 
 set "menu_choice="
@@ -82,14 +96,14 @@ set /p menu_choice=[?] Введите выбор [1-10]:
 if not defined menu_choice goto menu
 if "%menu_choice%"=="1" set "menu_target=zapret_install"
 if "%menu_choice%"=="2" set "menu_target=zapret_remove"
-if "%menu_choice%"=="3" set "menu_target=zapret_diagnostic"
-if "%menu_choice%"=="4" call :ipset_switch & goto menu
-if "%menu_choice%"=="5" call :game_filter_switch & goto menu
+if "%menu_choice%"=="3" call :ipset_switch & goto menu
+if "%menu_choice%"=="4" call :game_filter_switch & goto menu
+if "%menu_choice%"=="5" call :check_updates_switch & goto menu
 if "%menu_choice%"=="6" set "menu_target=ipset_update"
 if "%menu_choice%"=="7" set "menu_target=hosts_update"
-if "%menu_choice%"=="8" set "menu_target=auto_config"
-if "%menu_choice%"=="9" call :check_updates_switch & goto menu
-if "%menu_choice%"=="10" start "" "pwsh.exe" -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0utils\zapret_update.ps1" & exit
+if "%menu_choice%"=="8" start "" "pwsh.exe" -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0utils\zapret_update.ps1" & exit
+if "%menu_choice%"=="9" set "menu_target=zapret_diagnostic"
+if "%menu_choice%"=="10" set "menu_target=auto_config"
 if not defined menu_target goto menu
 
 cls
@@ -339,14 +353,14 @@ if "%GLOBAL_VERSION%"=="" (
 cls
 exit /b
 
-REM Загрузка приложения в меню Пуск
+REM Загрузка утилиты в меню Пуск
 :load_start_menu
 if exist "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Orbitus Service.lnk" (
     exit /b
 )
 
 cls
-echo [?] Инфо: Идет добавление приложения в меню Пуск...
+echo [?] Инфо: Идет добавление утилиты в меню Пуск...
 
 set "targetFile=%~f0"
 set "shortcutFile=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Orbitus Service.lnk"
