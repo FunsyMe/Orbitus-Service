@@ -146,11 +146,10 @@ if "%ServiceStatus%"=="Running" (
 ) else if "%ServiceStatus%"=="StopPending" (
     echo [?] Ошибка: %ServiceName% останавливается. Запустите диагностику для проверки конфликтов. Нажмите любую клавишу для выхода...
     pause >nul & exit
-) else if "%~2"=="status" (
-   set "ZapretStatus=не работает" 
-) else if not "%~2"=="soft" (
-    echo [?] Ошибка: %ServiceName% не работает. Нажмите любую клавишу для выхода...
-    pause >nul & exit
+) else if "%ServiceStatus%"=="Stopped" (
+    if "%~2"=="status" (
+        set "ZapretStatus=не работает"
+    )
 )
 
 exit /b
