@@ -5,7 +5,7 @@
 
 > [!TIP]
 > Данная утилита является фороком к [flowseal/zapret-discord-youtube](https://github.com/Flowseal/zapret-discord-youtube/).
-> Вы можете поддержать автора проекта: https://nowpayments.io/donation/flowseal
+> Вы можете поддержать оригинального разработчика zapret: https://nowpayments.io/donation/flowseal
 
 > [!CAUTION]
 > WinDivert может вызвать реакцию антивируса.
