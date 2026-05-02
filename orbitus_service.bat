@@ -29,7 +29,7 @@ if "%~1"=="game_filter" (
 
 REM Проверка прав
 net session >nul 2>&1 || (
-    echo Запрашиваем права администратора...
+    echo Запрашиваю права администратора...
     powershell -NoProfile -ExecutionPolicy Bypass -Command "Start-Process -FilePath '%~s0' -Verb RunAs" & exit
 )
 
