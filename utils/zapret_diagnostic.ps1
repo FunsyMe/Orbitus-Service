@@ -23,9 +23,9 @@ function Test-Service {
     if ($service) {
         $status = $service.Status
         if ($status -eq "Running") {
-            Write-Host "[ОК] $ServiceName успешно работает" -ForegroundColor Green
+            Write-Host "[ОК] $ServiceName работает" -ForegroundColor Green
         } elseif ($status -eq "StopPending") {
-            Write-Host "$ServiceName находится в состоянии ожидания, что может быть вызвано конфликтом с другим zapret. Запустите диагностику, чтобы попытаться устранить проблему" -ForegroundColor Red
+            Write-Host "$ServiceName находится в состоянии ожидания, что может быть вызвано конфликтом с другим zapret" -ForegroundColor Red
         } else {
             Write-Host "[ОШИБКА] $ServiceName не работает" -ForegroundColor Red
         }
@@ -185,8 +185,7 @@ try {
 if ($dohCount -gt 0) {
     Write-Host "[ОК] DNS" -ForegroundColor Green
 } else {
-    Write-Host "[ВНИМАНИЕ] Убедитесь, что в браузере настроен безопасный DNS с использованием нестандартного DNS-провайдера," -ForegroundColor Yellow
-    Write-Host "Если вы используете Windows 11, вы можете настроить зашифрованный DNS в параметрах" -ForegroundColor Yellow
+    Write-Host "[ВНИМАНИЕ] Убедитесь, что в браузере настроен Secure DNS с использованием нестандартного DNS-провайдера" -ForegroundColor Yellow
 }
 
 # Test Services
