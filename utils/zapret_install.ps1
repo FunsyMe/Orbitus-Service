@@ -1,4 +1,4 @@
-﻿$host.UI.RawUI.WindowTitle = "Запуск и добавление Zapret и proxy в автозапуск"
+﻿$host.UI.RawUI.WindowTitle = "Запуск и добавление Zapret в автозапуск"
 
 # Check Admin
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())

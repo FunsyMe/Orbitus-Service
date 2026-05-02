@@ -1,4 +1,4 @@
-﻿$host.UI.RawUI.WindowTitle = "Остановка и удаление Zapret и proxy из автозапуска"
+﻿$host.UI.RawUI.WindowTitle = "Остановка и удаление Zapret из автозапуска"
 
 # Check Admin
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
