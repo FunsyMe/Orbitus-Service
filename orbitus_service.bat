@@ -334,7 +334,7 @@ if not exist "%~dp0bin\check_updates.enabled" (
 cls
 echo [?] Инфо: Идет получение информации о последних обновлениях...
 
-set "GLOBAL_VERSION_URL=https://raw.githubusercontent.com/FunsyMe/Orbitus-Service/main/.service/orbitus_version.txt"
+set "GLOBAL_VERSION_URL=https://raw.githubusercontent.com/FunsyMe/orbitus-service/main/.service/orbitus_version.txt"
 for /f "delims=" %%A in ('call "pwsh.exe" -NoProfile -Command "(Invoke-WebRequest -Uri \"%GLOBAL_VERSION_URL%\" -Headers @{\"Cache-Control\"=\"no-cache\"} -UseBasicParsing -TimeoutSec 5).Content.Trim()" 2^>nul') do set "GLOBAL_VERSION=%%A"
 
 if "%GLOBAL_VERSION%"=="" (

@@ -1,6 +1,6 @@
 <div align="center">
 
-# **<img src="https://cdn-icons-png.flaticon.com/128/5968/5968756.png" height=28 /> <a href="https://github.com/FunsyMe/">FunsyMe</a><a href="https://github.com/FunsyMe/Orbitus-Service">/Orbitus-Service</a> <img src="https://cdn-icons-png.flaticon.com/128/1384/1384060.png" height=28 />**
+# **<img src="https://cdn-icons-png.flaticon.com/128/5968/5968756.png" height=28 /> <a href="https://github.com/FunsyMe/">FunsyMe</a><a href="https://github.com/FunsyMe/orbitus-service">/orbitus-service</a> <img src="https://cdn-icons-png.flaticon.com/128/1384/1384060.png" height=28 />**
 </div>
 
 > [!TIP]
@@ -25,7 +25,7 @@
     - В Firefox - "Включить DNS через HTTPS, используя: Максимальную защиту", затем "Выбрать поставщика" и вписать URL поставщика
     - В Windows 11 поддерживается включение Secure DNS прямо в настройках ОС
     
-2. Скачайте архив со [страницы последнего релиза](https://github.com/FunsyMe/Orbitus-Service/releases/latest)
+2. Скачайте архив со [страницы последнего релиза](https://github.com/FunsyMe/orbitus-service/releases/latest)
 3. Распакуйте содержимое архива по пути, который не содержит кириллицу или другие спец. символы
 4. Запустите нужную конфигурацию zapret из папки `pre-configs`
 

@@ -26,7 +26,7 @@ Write-Host "[ИНФО] Идет поиск обновлений Orbitus Service"
 
 try {
     $release = Invoke-WebRequest `
-        -Uri "https://raw.githubusercontent.com/FunsyMe/Orbitus-Service/main/.service/orbitus_version.txt" `
+        -Uri "https://raw.githubusercontent.com/FunsyMe/orbitus-service/main/.service/orbitus_version.txt" `
         -Headers @{ "Cache-Control"="no-cache" } `
         -UseBasicParsing -TimeoutSec 5 -ErrorAction Stop
         
@@ -106,7 +106,7 @@ try {
 
 # Download Archive
 try {
-    Invoke-WebRequest -Uri "https://github.com/FunsyMe/Orbitus-Service/releases/latest/download/orbitus-service-$newVersion.zip" -ErrorAction Stop -OutFile $zipDir
+    Invoke-WebRequest -Uri "https://github.com/FunsyMe/orbitus-service/releases/latest/download/orbitus-service-$newVersion.zip" -ErrorAction Stop -OutFile $zipDir
     Write-Host "[ОК] Orbitus Service успешно скачался" -ForegroundColor Green
 }
 catch {
