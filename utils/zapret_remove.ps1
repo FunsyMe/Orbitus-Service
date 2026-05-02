@@ -21,18 +21,6 @@ try {
     Write-Host "[ОШИБКА] Не удалось удалить сервис Zapret" -ForegroundColor Red
 }
 
-# Stop Proxy
-try {
-    Stop-Process -Name "proxy" -Force -ErrorAction Stop
-    Write-Host "[ОК] Proxy успешно остановлен" -ForegroundColor Green
-}
-catch {
-    Write-Host "[ОШИБКА] Не удалось остановить Proxy" -ForegroundColor Red
-}
-
-# Remove Proxy
-Unregister-ScheduledTask -TaskName "Proxy Telegram" -Confirm:$false -ErrorAction SilentlyContinue | Out-Null
-
 # Winws
 try {
     Stop-Process -Name 'winws' -Force -ErrorAction SilentlyContinue

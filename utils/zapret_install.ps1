@@ -19,7 +19,6 @@ $listsDir = Join-Path $rootDir "lists"
 
 $gameFilterFile = Join-Path $binDir "game_filter.enabled"
 $winwsService = Join-Path $binDir "winws.exe"
-$proxy = Join-Path $binDir "proxy.exe"
 
 # Tatget Configs
 $batFiles = Get-ChildItem $preConfigsDir -Filter "*.bat" |
@@ -109,7 +108,6 @@ if ($pos -ge 0) {
 # Delete Bin
 $rawArgs = $rawArgs.Substring(2)
 $rawArgs = $rawArgs.Replace('exit /b 0', '')
-$rawArgs = $rawArgs.Replace('start "" /high "%BIN%proxy.exe"', '')
 
 $rawArgs = $rawArgs.Replace('^', '')
 $rawArgs = $rawArgs.Replace('=', ' ')
@@ -173,19 +171,6 @@ try {
     Write-Host "[ОШИБКА] Не удалось создать сервис Zapret" -ForegroundColor Red
 }
 
-# Create Proxy
-Stop-Process -Name "proxy" -Force -ErrorAction SilentlyContinue
-
-$action = New-ScheduledTaskAction -Execute $proxy -WorkingDirectory $binDir
-$trigger = New-ScheduledTaskTrigger -AtLogOn
-$settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
-
-Register-ScheduledTask -TaskName "Proxy Telegram" `
-    -Action $action `
-    -Trigger $trigger `
-    -Settings $settings `
-    -Force | Out-Null
-
 # Edit Service
 try {
     Set-Service -Name 'zapret' -Description 'Ninja Service'
@@ -200,14 +185,6 @@ try {
     Write-Host "[ОК] Сервис успешно запущен" -ForegroundColor Green
 } catch {
     Write-Host "[ОШИБКА] Не удалось запустить сервис" -ForegroundColor Red
-}
-
-# Start Proxy
-try {
-    Start-Process -FilePath $proxy -WorkingDirectory $binDir
-    Write-Host "[ОК] Proxy успешно запущен" -ForegroundColor Green
-} catch {
-    Write-Host "[ОШИБКА] Не удалось запустить Proxy" -ForegroundColor Red
 }
 
 # Edit Regedit
