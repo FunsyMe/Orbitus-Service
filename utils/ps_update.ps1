@@ -27,7 +27,7 @@ winget.exe install --id Microsoft.PowerShell --source winget
 if ($LASTEXITCODE -eq 0) {
     Write-Host ""
     Write-Host "[ОК] PowerShell успешно обновлен" -ForegroundColor Green
-    Write-Host "[ИНФО] После выхода, перезапустите Ninja Service" -ForegroundColor Cyan
+    Write-Host "[ИНФО] После выхода, перезапустите Orbitus Service" -ForegroundColor Cyan
     Write-Host "Нажмите любую кнопку для выхода..."
     
     [void][System.Console]::ReadKey($true)
@@ -35,7 +35,7 @@ if ($LASTEXITCODE -eq 0) {
 } else {
     Write-Host ""
     Write-Host "[ОШИБКА] Не удалось обновить PowerShell" -ForegroundColor Red
-    Write-Host "[ИНФО] После выхода, перезапустите Ninja Service" -ForegroundColor Cyan
+    Write-Host "[ИНФО] После выхода, перезапустите Orbitus Service" -ForegroundColor Cyan
     Write-Host "Нажмите любую кнопку для выхода..."
 
     [void][System.Console]::ReadKey($true)

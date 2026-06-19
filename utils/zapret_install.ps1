@@ -173,7 +173,7 @@ try {
 
 # Edit Service
 try {
-    Set-Service -Name 'zapret' -Description 'Ninja Service'
+    Set-Service -Name 'zapret' -Description 'Orbitus Service'
     Write-Host "[ОК] Конфигурация сервиса успешно обновлена" -ForegroundColor Green
 } catch {
     Write-Host "[ОШИБКА] Не удалось обновить конфигурацию сервиса" -ForegroundColor Red
