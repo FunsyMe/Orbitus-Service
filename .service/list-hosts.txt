@@ -240,6 +240,7 @@
 185.199.108.133 private-user-images.githubusercontent.com
 185.199.108.133 gist.githubusercontent.com
 185.199.108.133 avatars.githubusercontent.com
+185.199.108.133 desktop.githubusercontent.com
 
 # OpenAI
 45.155.204.190 chatgpt.com
