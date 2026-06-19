@@ -48,6 +48,17 @@ betterttv.net
 localizeapi.com
 klipy.com
 roblox.com
+rbxcdn.com
+rbxcdn.net
+rbxtrk.com
+cdn.arkoselabs.com
+roblox-api.arkoselabs.com
+rblx.social
+rblx.games
+rblx.name
+rblx.clothing
+rblx.media
+rover.link
 css.rbxcdn.com
 js.rbxcdn.com
 ecsv2.roblox.com
