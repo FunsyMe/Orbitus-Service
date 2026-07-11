@@ -51,6 +51,7 @@ Write-Host ""
 # Check Configs
 for ($configNum = 1; $configNum -le $batFiles.Count; $configNum++) {
     $file = $batFiles[$configNum - 1]
+    Clear-DnsClientCache
 
     Write-Host "Идет проверка конфига $($file.Name) " -ForegroundColor DarkCyan -NoNewline
     Write-Host "[$configNum/$($batFiles.Count)]" -ForegroundColor Yellow
