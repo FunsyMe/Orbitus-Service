@@ -21,8 +21,9 @@ $gameFilterFile = Join-Path $binDir "game_filter.enabled"
 $winwsService = Join-Path $binDir "winws.exe"
 
 # Tatget Configs
-$batFiles = Get-ChildItem $preConfigsDir -Filter "*.bat" |
-            Sort-Object Name
+$batFiles = Get-ChildItem $preConfigsDir -Filter "*.bat" | 
+            Sort-Object { $name = $_.Name; if ($name -eq "general.bat") { $name = "general .bat" } [Regex]::Replace($name, '(\d+)', { $args[0].Value.PadLeft(8, '0') }) }
+
 Set-Location $preConfigsDir
 
 if (-not $batFiles) {
@@ -73,7 +74,7 @@ if ($null -eq $batNumber -or
     $batNumber -gt $batFiles.Count -or
     $batNumber -eq 0) 
 {
-    Write-Host
+    Clear-Host
     Write-Host "[ОШИБКА] Неверный выбор" -ForegroundColor Red
     Write-Host "Нажмите любую клавишу для выхода..."
 

