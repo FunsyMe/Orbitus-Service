@@ -36,7 +36,8 @@ $targets = @(
 )
 
 # Target Configs
-$batFiles = Get-ChildItem $preConfigsDir -Filter "*.bat" | Sort-Object Name
+$batFiles = Get-ChildItem $preConfigsDir -Filter "*.bat" | 
+            Sort-Object { $name = $_.Name; if ($name -eq "general.bat") { $name = "general .bat" } [Regex]::Replace($name, '(\d+)', { $args[0].Value.PadLeft(8, '0') }) }
 
 if (-not $batFiles) {
     Write-Host "[ОШИБКА] Не найдены general*.bat файлы" -ForegroundColor Red
