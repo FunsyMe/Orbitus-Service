@@ -57,7 +57,7 @@ $fakeFile = (Read-Host) -as [int]
 # Check Input
 if ($null -eq $fakeFile -or
     $fakeFile -gt $unactiveFakesFiles.Count -or
-    $fakeFile -eq 0) 
+    $fakeFile -le 0) 
 {
     Clear-Host
     Write-Host "[ОШИБКА] Неверный выбор" -ForegroundColor Red

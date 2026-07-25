@@ -72,7 +72,7 @@ $batNumber = (Read-Host) -as [int]
 # Check Input
 if ($null -eq $batNumber -or
     $batNumber -gt $batFiles.Count -or
-    $batNumber -eq 0) 
+    $batNumber -le 0) 
 {
     Clear-Host
     Write-Host "[ОШИБКА] Неверный выбор" -ForegroundColor Red
