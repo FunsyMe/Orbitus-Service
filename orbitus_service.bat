@@ -92,7 +92,7 @@ echo.
 
 set "menu_choice="
 set "menu_target="
-set /p menu_choice=[?] Введите выбор [1-10]: 
+set /p menu_choice=[?] Введите выбор [1-11]: 
 
 if not defined menu_choice goto menu
 if "%menu_choice%"=="1" set "menu_target=zapret_install"
