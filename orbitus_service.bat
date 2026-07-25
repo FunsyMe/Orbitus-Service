@@ -59,8 +59,9 @@ REM Меню
 title Orbitus Service
 cls
 
-call :ipset_status
 call :game_filter_status
+call :ipset_status
+call :active_fake_status
 call :check_updates_status
 
 echo.
@@ -74,16 +75,17 @@ echo.
 echo    [НАСТРОЙКИ]
 echo        3. Сменить Game Filter        [%GameFilterStatus%]
 echo        4. Сменить IPset Filter       [%IPsetStatus%]
-echo        5. Авто-Проверка обновлений   [%CheckUpdatesStatus%]
+echo        5. Сменить активный фейк      [%ActiveFakeStatus%]
+echo        6. Авто-Проверка обновлений   [%CheckUpdatesStatus%]
 echo.
 echo    [ОБНОВЛЕНИЯ]
-echo        6. Обновить файл IPset
-echo        7. Обновить файл hosts
-echo        8. Проверить обновления       %UpdateStatus%
+echo        7. Обновить файл IPset
+echo        8. Обновить файл hosts
+echo        9. Проверить обновления       %UpdateStatus%
 echo.
 echo    [ИНСТРУМЕНТЫ]
-echo        9. Диагностика zapret
-echo        10. Авто-Поиск конфигурации
+echo        10. Диагностика zapret
+echo        11. Авто-Поиск конфигурации
 echo.
 echo    --------------------------------
 echo.
@@ -97,12 +99,13 @@ if "%menu_choice%"=="1" set "menu_target=zapret_install"
 if "%menu_choice%"=="2" set "menu_target=zapret_remove"
 if "%menu_choice%"=="3" call :game_filter_switch & goto menu
 if "%menu_choice%"=="4" call :ipset_switch & goto menu
-if "%menu_choice%"=="5" call :check_updates_switch & goto menu
-if "%menu_choice%"=="6" set "menu_target=ipset_update"
-if "%menu_choice%"=="7" set "menu_target=hosts_update"
-if "%menu_choice%"=="8" start "" "pwsh.exe" -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0utils\zapret_update.ps1" & exit
-if "%menu_choice%"=="9" set "menu_target=zapret_diagnostic"
-if "%menu_choice%"=="10" set "menu_target=auto_config"
+if "%menu_choice%"=="5" set "menu_target=active_fake_switch"
+if "%menu_choice%"=="6" call :check_updates_switch & goto menu
+if "%menu_choice%"=="7" set "menu_target=ipset_update"
+if "%menu_choice%"=="8" set "menu_target=hosts_update"
+if "%menu_choice%"=="9" start "" "pwsh.exe" -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%~dp0utils\zapret_update.ps1" & exit
+if "%menu_choice%"=="10" set "menu_target=zapret_diagnostic"
+if "%menu_choice%"=="11" set "menu_target=auto_config"
 if not defined menu_target goto menu
 
 cls
@@ -158,53 +161,6 @@ if "%ServiceStatus%"=="Running" (
     echo [?] Ошибка: %ServiceName% останавливается. Запустите диагностику для проверки конфликтов. Нажмите любую клавишу для выхода...
     pause >nul & exit
 )
-
-exit /b
-
-REM Статус IPset
-:ipset_status
-set "ipsetFile=%~dp0lists\ipset-all.txt"
-set "lineCount=0"
-for /f %%i in ('type "%ipsetFile%" 2^>nul ^| find /c /v ""') do set "lineCount=%%i"
-
-if !lineCount!==0 (
-    set "IPsetStatus=any"
-) else (
-    findstr /R "^203\.0\.113\.113/32$" "%ipsetFile%" >nul
-    if !errorlevel!==0 (
-        set "IPsetStatus=none"
-    ) else (
-        set "IPsetStatus=loaded"
-    )
-)
-exit /b
-
-REM Переключение IPset
-:ipset_switch
-set "listFile=%~dp0lists\ipset-all.txt"
-set "backupFile=%listFile%.backup"
-
-if "%IPsetStatus%"=="loaded" ( 
-    if not exist "%backupFile%" (
-        ren "%listFile%" "ipset-all.txt.backup"
-    ) else (
-        del /f /q "%backupFile%"
-        ren "%listFile%" "ipset-all.txt.backup"
-    )
-    >"%listFile%" (
-        echo 203.0.113.113/32
-    )
-) else if "%IPsetStatus%"=="none" (
-    type nul > "%listFile%"
-) else if "%IPsetStatus%"=="any" ( 
-    if exist "%backupFile%" (
-        del /f /q "%listFile%"
-        ren "%backupFile%" "ipset-all.txt"
-    ) else (
-        echo [?] Ошибка: Не удалось обновить IPset. Нажмите любую клавишу для выхода...
-        pause >nul
-    ) 
-)
 exit /b
 
 REM Статус GameFilter
@@ -253,6 +209,76 @@ if /i "%GameFilterMode%"=="all" (
     echo udp>"%~dp0bin\game_filter.enabled"
 ) else if /i "%GameFilterMode%"=="udp" (
     del /f /q "%~dp0bin\game_filter.enabled"
+)
+exit /b
+
+REM Статус IPset
+:ipset_status
+set "ipsetFile=%~dp0lists\ipset-all.txt"
+set "lineCount=0"
+for /f %%i in ('type "%ipsetFile%" 2^>nul ^| find /c /v ""') do set "lineCount=%%i"
+
+if !lineCount!==0 (
+    set "IPsetStatus=any"
+) else (
+    findstr /R "^203\.0\.113\.113/32$" "%ipsetFile%" >nul
+    if !errorlevel!==0 (
+        set "IPsetStatus=none"
+    ) else (
+        set "IPsetStatus=loaded"
+    )
+)
+exit /b
+
+REM Переключение IPset
+:ipset_switch
+set "listFile=%~dp0lists\ipset-all.txt"
+set "backupFile=%listFile%.backup"
+
+if "%IPsetStatus%"=="loaded" ( 
+    if not exist "%backupFile%" (
+        ren "%listFile%" "ipset-all.txt.backup"
+    ) else (
+        del /f /q "%backupFile%"
+        ren "%listFile%" "ipset-all.txt.backup"
+    )
+    >"%listFile%" (
+        echo 203.0.113.113/32
+    )
+) else if "%IPsetStatus%"=="none" (
+    type nul > "%listFile%"
+) else if "%IPsetStatus%"=="any" ( 
+    if exist "%backupFile%" (
+        del /f /q "%listFile%"
+        ren "%backupFile%" "ipset-all.txt"
+    ) else (
+        echo [?] Ошибка: Не удалось обновить IPset. Нажмите любую клавишу для выхода...
+        pause >nul
+    ) 
+)
+exit /b
+
+REM Статус активного фейка
+:active_fake_status
+set "activeFakeFile=%~dp0bin\active_discord_udp.bin"
+set "ActiveFakeStatus="
+
+for %%F in ("%~dp0bin\quic_initial*.bin") do (
+    fc /b "%activeFakeFile%" "%%F" >nul && (
+        if "%%~nxF"=="quic_initial_4pda_to.bin" (
+            set "ActiveFakeStatus=4pda.to"
+        ) else if "%%~nxF"=="quic_initial_dbankcloud_ru.bin" (
+            set "ActiveFakeStatus=dbankcloud.ru"
+        ) else if "%%~nxF"=="quic_initial_steamcommunity_com.bin" (
+            set "ActiveFakeStatus=steamcommunity.com"
+        ) else if "%%~nxF"=="quic_initial_tencent_com.bin" (
+            set "ActiveFakeStatus=tecent.com"
+        ) else if "%%~nxF"=="quic_initial_www_google_com.bin" (
+            set "ActiveFakeStatus=www.google.com"
+        )
+
+        exit /b
+    )
 )
 exit /b
 
