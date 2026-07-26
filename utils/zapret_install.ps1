@@ -190,7 +190,7 @@ try {
 
 # Edit Regedit
 try {
-    New-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Services\zapret' -Name 'zapret-discord-youtube' -Value $fileName -PropertyType String -Force | Out-Null
+    New-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Services\zapret' -Name 'orbitus-service' -Value $fileName -PropertyType String -Force | Out-Null
     Write-Host "[ОК] Regedit успешно обновлен" -ForegroundColor Green
 } catch {
     Write-Host "[ОШИБКА] Не удалось обновить Regedit" -ForegroundColor Red
