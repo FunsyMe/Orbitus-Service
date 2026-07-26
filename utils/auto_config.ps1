@@ -44,7 +44,15 @@ if (-not $batFiles) {
     Exit-Script
 }
 
-Write-Host "[ИНФО] Все активные Zapret будут остановлены" -ForegroundColor Cyan
+# Check Winws
+if (Get-Process -Name "winws" -ErrorAction SilentlyContinue) {
+    Write-Host "[ОШИБКА] Остановите сервис zapret" -ForegroundColor Red
+    Write-Host "Нажмите любую кнопку для выхода..."
+
+    [void][System.Console]::ReadKey($true)
+    exit
+}
+
 Write-Host "[ИНФО] Прохождение теста может занять время. Пожалуйста, подождите" -ForegroundColor Cyan
 Write-Host "[ИНФО] Идет Авто-Поиск пре-конфига Zapret" -ForegroundColor Cyan
 Write-Host ""
