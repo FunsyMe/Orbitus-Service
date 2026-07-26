@@ -161,7 +161,8 @@ if (!(Test-Path "$BIN_PATH\*.sys")) {
 
 # VPN
 $vpn = Get-Service | Where-Object {
-    ($_.Name -like "*VPN*") -or ($_.DisplayName -like "*VPN*")
+    (($_.Name -like "*VPN*") -or ($_.DisplayName -like "*VPN*")) -and
+    $_.Name -ne "RvControlSvc"
 }
 
 if ($vpn) {
