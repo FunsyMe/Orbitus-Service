@@ -27,6 +27,12 @@ if "%~1"=="game_filter" (
     exit /b
 )
 
+REM Получение дабл-фейка
+if "%~1"=="double_fake" (
+    call :load_double_fake
+    exit /b
+)
+
 REM Проверка прав
 net session >nul 2>&1 || (
     echo Запрашиваю права администратора...
@@ -137,6 +143,24 @@ if not exist "%listsPath%list-general-user.txt" (
 )
 if not exist "%listsPath%list-exclude-user.txt" (
     type nul > "%listsPath%list-exclude-user.txt"
+)
+exit /b
+
+REM Загрузка дабл-фейка
+:load_double_fake
+set "doubleFakeFile=%~dp0bin\double_fake.txt"
+set "doubleFake="
+
+if not exist "%doubleFakeFile%" (
+    type nul > %doubleFakeFile%
+)
+
+set /p doubleFakeName=<"%doubleFakeFile%"
+
+if "%doubleFakeName%"=="none" (
+    set "doubleFake="
+) else (
+    set "doubleFake=--dpi-desync-fake-discord="%BIN%%doubleFakeName%""
 )
 exit /b
 
