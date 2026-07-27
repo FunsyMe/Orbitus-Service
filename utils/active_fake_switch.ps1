@@ -14,6 +14,7 @@ if (-not $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Adm
 # Dir Variables
 $rootDir = Split-Path $PSScriptRoot -Parent
 $binDir = Join-Path $rootDir "bin"
+$doubleFakeDir = Join-Path $binDir "double_fake.txt"
 
 # Check Winws
 if (Get-Process -Name "winws" -ErrorAction SilentlyContinue) {
@@ -41,7 +42,11 @@ for ($i = 0; $i -lt $unactiveFakesFiles.Count; $i++) {
     }
 }
 
-# User Input
+# Get Double Fake
+$activeDoubleFakeName = Get-Content $doubleFakeDir -Raw
+$unactiveDoubleFakesFiles = Get-ChildItem $binDir -Include "quic_initial*.bin", "stun.bin" -Recurse
+
+# Fake User Input
 Write-Host "[ИНФО] Активный фейк $($activeFake.Name)" -ForegroundColor Cyan
 Write-Host "[ВВОД] Введите номер фейка (цифра)" -ForegroundColor Cyan
 Write-Host
@@ -54,10 +59,36 @@ Write-Host
 Write-Host "[ВВОД] Ваш выбор [1-$i]: " -ForegroundColor Cyan -NoNewline
 $fakeFile = (Read-Host) -as [int]
 
-# Check Input
 if ($null -eq $fakeFile -or
     $fakeFile -gt $unactiveFakesFiles.Count -or
     $fakeFile -le 0) 
+{
+    Clear-Host
+    Write-Host "[ОШИБКА] Неверный выбор" -ForegroundColor Red
+    Write-Host "Нажмите любую клавишу для выхода..."
+
+    [void][System.Console]::ReadKey($true)
+    exit
+}
+
+# Double Fake User Input
+Clear-Host
+Write-Host "[ИНФО] Активный дабл-фейк $activeDoubleFakeName" -ForegroundColor Cyan
+Write-Host "[ВВОД] Введите номер фейка (цифра)" -ForegroundColor Cyan
+Write-Host
+
+Write-Host "0. none"
+for ($i = 0; $i -lt $unactiveDoubleFakesFiles.Count; $i++) {
+    Write-Host "$($i + 1). $($unactiveDoubleFakesFiles[$i].Name)"
+}
+
+Write-Host
+Write-Host "[ВВОД] Ваш выбор [0-$i]: " -ForegroundColor Cyan -NoNewline
+$doubleFakeFile = (Read-Host) -as [int]
+
+if ($null -eq $doubleFakeFile -or
+    $doubleFakeFile -gt $unactiveDoubleFakesFiles.Count -or
+    $doubleFakeFile -lt 0) 
 {
     Clear-Host
     Write-Host "[ОШИБКА] Неверный выбор" -ForegroundColor Red
@@ -83,6 +114,25 @@ catch {
 
 Clear-Host
 Write-Host "[ОК] Фейк успешно сменен на $($unactiveFakesFiles[$fakeFile - 1].Name)" -ForegroundColor Green
+
+if ($doubleFakeFile -ne 0) {
+    try {
+        Set-Content -Path $doubleFakeDir -Value "$($unactiveDoubleFakesFiles[$doubleFakeFile - 1].Name)" -NoNewline
+        Write-Host "[ОК] Дабл-фейк успешно сменен на $($unactiveFakesFiles[$fakeFile - 1].Name)" -ForegroundColor Green
+    }
+    catch {
+        Clear-Host
+        Write-Host "[ОШИБКА] Не удалось сменить дабл-фейк" -ForegroundColor Red
+        Write-Host "Нажмите любую клавишу для выхода..."
+
+        [void][System.Console]::ReadKey($true)
+        exit
+    }
+} else {
+    Set-Content -Path $doubleFakeDir -Value "none" -NoNewline
+    Write-Host "[ОК] Дабл-фейк успешно удален" -ForegroundColor Green
+}
+
 Write-Host "Нажмите любую клавишу для выхода..."
 
 [void][System.Console]::ReadKey($true)
