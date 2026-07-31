@@ -196,6 +196,7 @@ if not exist "%~dp0bin\game_filter.enabled" (
     set "GameFilterUDP=12"
     exit /b
 )
+
 set "GameFilterMode="
 set /p GameFilterMode=<"%~dp0bin\game_filter.enabled"
 
